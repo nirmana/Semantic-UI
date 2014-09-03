@@ -12098,7 +12098,7 @@ $.fn.sidebar = function(parameters) {
           setTimeout(function() {
             module.set.inward();
             module.set.pushed();
-          }, 500);
+          }, 100);
         },
 
         pullPage: function(callback) {
@@ -12518,7 +12518,6 @@ $.fn.sidebar.settings = {
 };
 
 })( jQuery, window , document );
-
  /*
  * # Semantic - Sticky
  * http://github.com/semantic-org/semantic-ui/

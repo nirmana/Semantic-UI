@@ -31,9 +31,6 @@ themes      : ['Default']
     <div class="animation example">
       <h4 class="ui header">Animation</h4>
       <p>A sidebar can use different animations to change contexts</p>
-      <div class="ui button" data-animation="safe">
-        Safe
-      </div>
       <div class="ui button" data-animation="overlay">
         Overlay
       </div>

@@ -270,7 +270,7 @@ $.fn.sidebar = function(parameters) {
           setTimeout(function() {
             module.set.inward();
             module.set.pushed();
-          }, 500);
+          }, 100);
         },
 
         pullPage: function(callback) {

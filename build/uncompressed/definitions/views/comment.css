@@ -46,6 +46,33 @@
      Load Default
 -------------------*/
 /*******************************
+            Comments
+*******************************/
+/*-------------------
+       View
+--------------------*/
+/*-------------------
+      Elements
+--------------------*/
+/* Comment */
+/* Nested Comment */
+/* Avatar */
+/* Content */
+/* Author */
+/* Metadata */
+/* Text */
+/* Actions */
+/* Reply */
+/*-------------------
+      Variations
+--------------------*/
+/* Threaded */
+/* Minimal */
+/* Sizes */
+/*------------------
+     Load Theme
+-------------------*/
+/*******************************
          Site Settings
 *******************************/
 /*-------------------
@@ -136,33 +163,6 @@
 /*---  Standard  ---*/
 /*---  Emotive  ---*/
 /*---  Neutrals  ---*/
-/*******************************
-            Comments
-*******************************/
-/*-------------------
-       View
---------------------*/
-/*-------------------
-      Elements
---------------------*/
-/* Comment */
-/* Nested Comment */
-/* Avatar */
-/* Content */
-/* Author */
-/* Metadata */
-/* Text */
-/* Actions */
-/* Reply */
-/*-------------------
-      Variations
---------------------*/
-/* Threaded */
-/* Minimal */
-/* Sizes */
-/*------------------
-     Load Theme
--------------------*/
 /*------------------
      Load Site
 -------------------*/
@@ -365,16 +365,16 @@
        Sizes
 ---------------------*/
 .ui.small.comments {
-  font-size: 0.9em;
+  font-size: 0.875em;
 }
 .ui.comments {
   font-size: 1em;
 }
 .ui.large.comments {
-  font-size: 1.1em;
+  font-size: 1.125em;
 }
 .ui.huge.comments {
-  font-size: 1.2em;
+  font-size: 1.375em;
 }
 /*******************************
            Overrides

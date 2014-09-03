@@ -58,7 +58,6 @@ $.fn.sidebar = function(parameters) {
         $sidebars       = $context.children(selector.sidebar),
         $pusher         = $context.children(selector.pusher),
         $page           = $pusher.children(selector.page),
-        $fixed          = $pusher.find(selector.fixed),
 
         element         = this,
         instance        = $module.data(moduleNamespace),
@@ -119,7 +118,8 @@ $.fn.sidebar = function(parameters) {
         unbind: {
           clickaway: function() {
             $context
-              .off(eventNamespace)
+              .off('click' + eventNamespace)
+              .off('touchend' + eventNamespace)
             ;
           }
         },
@@ -131,34 +131,6 @@ $.fn.sidebar = function(parameters) {
           $sidebars = $context.children(selector.sidebar);
           $pusher   = $context.children(selector.pusher);
           $page     = $pusher.children(selector.page);
-          $fixed    = $pusher.find(selector.fixed);
-        },
-
-        convert: {
-          toAbsolute: function() {
-            window.scrollTo(0, 0);
-           /* var
-              scrollTop = $(document).scrollTop()
-            ;
-            $fixed
-              .each(function() {
-                console.log('translate3d(0, ' + scrollTop + 'px, 0px)');
-                $(this)
-                  .css({
-                    transform: 'translate3d(0, ' + scrollTop + 'px, 0px)'
-                  })
-                ;
-              })
-            ;*/
-          },
-          toFixed: function() {
-            window.scrollTo(0, 0);
-          /*  $fixed
-              .css({
-                transform: 'translate3d(0, 0px, 0px)'
-              })
-            ;*/
-          }
         },
 
         setup: {
@@ -175,15 +147,10 @@ $.fn.sidebar = function(parameters) {
                   .wrapAll($pusher)
               ;
             }
-            if($module.prevAll($page)[0] !== $page[0]) {
+            if($module.parent()[0] !== $context[0]) {
               module.debug('Moved sidebar to correct parent element');
-              $module.detach().prependTo($context);
+              $module.detach().appendTo($context);
             }
-            $fixed
-              .css({
-                transform: 'translate3d(0, 0px, 0px)'
-              })
-            ;
             module.refresh();
           },
           context: function() {
@@ -225,7 +192,6 @@ $.fn.sidebar = function(parameters) {
             if(settings.animation !== 'overlay') {
               module.hideAll();
             }
-            module.convert.toAbsolute();
             module.pushPage(function() {
               $.proxy(callback, element)();
               $.proxy(settings.onShow, element)();
@@ -246,7 +212,6 @@ $.fn.sidebar = function(parameters) {
           module.debug('Hiding sidebar', callback);
           if(module.is.visible()) {
             module.pullPage(function() {
-              module.convert.toFixed();
               $.proxy(callback, element)();
               $.proxy(settings.onHidden, element)();
             });
@@ -276,18 +241,16 @@ $.fn.sidebar = function(parameters) {
 
         pushPage: function(callback) {
           var
-            $transition = (settings.animation == 'safe')
-              ? $context
-              : (settings.animation == 'overlay')
-                ? $module
-                : $pusher
+            $transition = (settings.animation == 'overlay')
+              ? $module
+              : $pusher
           ;
           callback = $.isFunction(callback)
             ? callback
             : function(){}
           ;
           module.verbose('Adding context push state', $context);
-          if(settings.animation !== 'overlay') {
+          if(settings.animation != 'overlay') {
             module.remove.allVisible();
           }
           $transition
@@ -304,19 +267,17 @@ $.fn.sidebar = function(parameters) {
           module.set.visible();
           module.set.animation();
           module.set.direction();
-          requestAnimationFrame(function() {
+          setTimeout(function() {
             module.set.inward();
             module.set.pushed();
-          });
+          }, 100);
         },
 
         pullPage: function(callback) {
           var
-            $transition = (settings.animation == 'safe')
-              ? $context
-              : (settings.animation == 'overlay')
-                ? $module
-                : $pusher
+            $transition = (settings.animation == 'overlay')
+              ? $module
+              : $pusher
           ;
           callback = $.isFunction(callback)
             ? callback
@@ -688,7 +649,7 @@ $.fn.sidebar.settings = {
   performance     : false,
 
   animation       : 'scale down',
-  mobileAnimation : 'slide along',
+  mobileAnimation : 'reveal',
 
   context         : 'body',
   useCSS          : true,
@@ -716,7 +677,6 @@ $.fn.sidebar.settings = {
 
   selector: {
     sidebar : '.ui.sidebar',
-    fixed   : '.ui.fixed',
     pusher  : '.pusher',
     page    : '.page',
     omitted : 'script, link, style, .ui.modal, .ui.nag'
